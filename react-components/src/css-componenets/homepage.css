@@ -44,7 +44,7 @@
 }
 
 .card{
-  border: 2px solid rgb(199, 171, 48);
+  border: 2px solid rgb(238, 182, 60);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -102,8 +102,8 @@
 }
 
 .show-details {
-  border-radius: 5px;
-  background-color: #73818c;
+  border-radius: 10px;
+  background-color: #e09248;
   width: 109px;
   padding: 3px 10px;
   color: white;
@@ -114,7 +114,7 @@
 }
 
 .show-details:hover {
-  background-color: #598fbc;
+  background-color: #e09248;
 }
 
 .total-description-product {
@@ -123,20 +123,24 @@
   width: 100%;
 } 
 
+.like-image{
+  align-self: flex-end;
+}
+
 .likeHeart {
   cursor: pointer;
 }
 
 .likeHeart.active {
-  fill: #2480cb;
+  fill: #e09248;
 }
 
-/* .wrapper-like {
-  position: absolute;
-  bottom: 32px;
-  left: 0;
-  right: 0;
-} */
+.wrapper-like {
+  width: 90%;
+ display: flex;
+ justify-content: space-between;
+ margin-bottom: 10px;
+} 
 
  @media (max-width: 1400px){
   .container_home{
