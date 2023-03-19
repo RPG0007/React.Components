@@ -7,7 +7,7 @@ export class Header extends Component {
     return (
       <header data-testid="header" className="header">
         <div>
-          <NavLink to="/" className="logo">
+          <NavLink to="/React.Components/" className="logo">
             <img className="logo" src={logo} alt="" />
           </NavLink>
         </div>
@@ -17,7 +17,7 @@ export class Header extends Component {
               <li>
                 <NavLink
                   className="navigation_link"
-                  to="/"
+                  to="/React.Components/"
                   style={({ isActive }) =>
                     isActive
                       ? {
@@ -33,7 +33,7 @@ export class Header extends Component {
               <li>
                 <NavLink
                   className="navigation_link"
-                  to="about"
+                  to="/React.Components/about"
                   style={({ isActive }) =>
                     isActive
                       ? {

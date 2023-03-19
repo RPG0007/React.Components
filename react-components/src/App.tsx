@@ -18,8 +18,8 @@ class App extends Component {
           <Header />
           <main className="main">
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="about" element={<AboutPage />} />
+              <Route path="React.Components/" element={<HomePage />} />
+              <Route path="React.Components/about" element={<AboutPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>

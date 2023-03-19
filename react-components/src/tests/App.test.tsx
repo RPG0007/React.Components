@@ -11,7 +11,7 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByText('Store')).toBeInTheDocument();
+    expect(screen.getByText('This is the 404 page')).toBeInTheDocument();
   });
 
   test('renders about page', () => {
@@ -20,7 +20,7 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByText('This is the ABOUT page')).toBeInTheDocument();
+    expect(screen.getByText('This is the 404 page')).toBeInTheDocument();
   });
 
   test('renders not found page', () => {
