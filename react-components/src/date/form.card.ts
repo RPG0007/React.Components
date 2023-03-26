@@ -2,9 +2,9 @@ export type Card = {
   id: number;
   image: string;
   title: string;
-  birth: Date;
+  valid: string;
   description: string;
   ingredient: string;
-  cost: number;
+  cost: string;
   house: string;
 };
