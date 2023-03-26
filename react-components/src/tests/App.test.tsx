@@ -31,4 +31,20 @@ describe('App', () => {
     );
     expect(screen.getByText('This is the 404 page')).toBeInTheDocument();
   });
+  test('renders forms page', () => {
+    render(
+      <MemoryRouter initialEntries={['/React.Components/forms']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('Name')).toBeInTheDocument();
+  });
+  test('renders forms page2', () => {
+    render(
+      <MemoryRouter initialEntries={['/React.Components/forms']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('Cards not found')).toBeInTheDocument();
+  });
 });

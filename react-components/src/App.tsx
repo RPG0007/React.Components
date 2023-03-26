@@ -5,11 +5,11 @@ import { AboutPage } from './pages/AboutPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { Forms } from './pages/Forms/index';
 
 import './App.css';
 import '../src/css-componenets/header-footer.css';
 import '../src/css-componenets/homepage.css';
-import Forms from 'pages/Forms/index';
 
 class App extends Component {
   render() {

@@ -10,7 +10,7 @@ interface FormsState {
   popup: boolean;
 }
 
-class Forms extends Component {
+export class Forms extends Component {
   state: FormsState;
   constructor(props: object) {
     super(props);
@@ -46,5 +46,3 @@ class Forms extends Component {
     );
   }
 }
-
-export default Forms;
