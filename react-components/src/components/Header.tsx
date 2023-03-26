@@ -45,6 +45,20 @@ export class Header extends Component {
                 >
                   About
                 </NavLink>
+                <NavLink
+                  className="navigation_link"
+                  to="/React.Components/forms"
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          textDecoration: 'none',
+                          color: 'gold',
+                        }
+                      : {}
+                  }
+                >
+                  Forms
+                </NavLink>
               </li>
             </ul>
           </nav>
