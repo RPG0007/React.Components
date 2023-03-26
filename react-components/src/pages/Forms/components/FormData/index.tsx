@@ -97,8 +97,8 @@ class FormData extends Component<FormDataProps> {
     const curent = new Date().toISOString().slice(0, 10);
     if (!date) {
       errorArray.date = 'Required field';
-    } else if (Date.parse(date!) >= Date.parse(curent)) {
-      errorArray.date = 'Date should be earlier than today';
+    } else if (Date.parse(date!) <= Date.parse(curent)) {
+      errorArray.date = 'Date should be later than today';
     } else {
       errorArray.date = '';
     }

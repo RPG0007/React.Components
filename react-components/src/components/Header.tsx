@@ -45,6 +45,8 @@ export class Header extends Component {
                 >
                   About
                 </NavLink>
+              </li>
+              <li>
                 <NavLink
                   className="navigation_link"
                   to="/React.Components/forms"

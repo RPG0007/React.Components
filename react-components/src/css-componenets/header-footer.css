@@ -14,6 +14,10 @@
   height: 40px;
 }
 
+.wrapper_navigation{
+   width: 30%;
+}
+
 .navigation ul{
   display: flex;
   flex-direction: row;
