@@ -5,12 +5,12 @@ import './index.scss';
 interface FormDataState {
   errors: {
     name: string;
-    desc: boolean;
-    date: boolean;
+    desc: string;
+    date: string;
     radio: boolean;
     cost: string;
     select: boolean;
-    file: boolean;
+    file: string;
     checkbox: boolean;
   };
 }
@@ -43,12 +43,12 @@ class FormData extends Component<FormDataProps> {
     this.state = {
       errors: {
         name: '',
-        desc: false,
-        date: false,
+        desc: '',
+        date: '',
         radio: false,
         cost: '',
         select: false,
-        file: false,
+        file: '',
         checkbox: false,
       },
     };
@@ -67,7 +67,9 @@ class FormData extends Component<FormDataProps> {
     const select = this.inputSelectRef.current?.value;
     const file = this.inputFileRef.current?.value;
     const checkbox = this.inputCheckboxRef.current?.checked;
+    const files = this.inputFileRef.current?.files?.[0];
     const errorArray = { ...this.state.errors };
+    //Name Validation
     if (!name) {
       errorArray.name = 'Required field';
     } else if (name[0] !== name[0].toUpperCase()) {
@@ -75,23 +77,64 @@ class FormData extends Component<FormDataProps> {
     } else {
       errorArray.name = '';
     }
-    errorArray.desc = !desc;
-    errorArray.date = !date;
+    //Description Validation
+    if (!desc) {
+      errorArray.desc = 'Required field';
+    } else if (desc.split(' ').length < 3) {
+      errorArray.desc = 'Should contains 3 words';
+    } else if (
+      desc
+        .trim()
+        .split(' ')
+        .some((word) => word.length < 5)
+    ) {
+      errorArray.desc = 'Words should be longer then 5 symbols';
+    } else {
+      errorArray.desc = '';
+    }
+
+    //Date Validation
+    const curent = new Date().toISOString().slice(0, 10);
+    if (!date) {
+      errorArray.date = 'Required field';
+    } else if (Date.parse(date!) >= Date.parse(curent)) {
+      errorArray.date = 'Date should be earlier than today';
+    } else {
+      errorArray.date = '';
+    }
+
+    //Radio-btn Validation
     errorArray.radio = !radio;
+
+    //Cost Validation
+
     if (!cost) {
       errorArray.cost = 'Required field';
     } else if (!/^[0-9]{1,}$/.test(cost)) {
       errorArray.cost = 'Should be positive';
+    } else if (cost === '0') {
+      errorArray.cost = 'Should be more than 0';
     } else {
       errorArray.cost = '';
     }
+
+    //Select Validation
     errorArray.select = !select;
-    errorArray.file = !file;
+
+    //File Validation
+    if (!file) {
+      errorArray.file = 'Required field';
+    } else if (!files?.type.startsWith('image/')) {
+      errorArray.file = 'Selected file is not an image';
+    } else {
+      errorArray.file = '';
+    }
+
+    //Checkbox Validation
     errorArray.checkbox = !checkbox;
     this.setState({ errors: errorArray });
     if (Object.values(errorArray).every((value) => !value)) {
-      const file = this.inputFileRef.current?.files?.[0];
-      const image = file ? URL.createObjectURL(file) : '';
+      const image = files ? URL.createObjectURL(files) : '';
       this.props.handleCard({
         id: this.props.cards,
         image: image,
@@ -131,7 +174,7 @@ class FormData extends Component<FormDataProps> {
             <label className="forms__label" htmlFor="description">
               Description
             </label>
-            {this.state.errors.desc && <p className="input__error">{error}</p>}
+            {this.state.errors.desc && <p className="input__error">{this.state.errors.desc}</p>}
           </div>
           <input
             type="text"
@@ -146,7 +189,7 @@ class FormData extends Component<FormDataProps> {
             <label className="forms__label" htmlFor="date">
               Valid Until
             </label>
-            {this.state.errors.date && <p className="input__error">{error}</p>}
+            {this.state.errors.date && <p className="input__error">{this.state.errors.date}</p>}
           </div>
           <input
             type="date"
@@ -196,7 +239,9 @@ class FormData extends Component<FormDataProps> {
             {this.state.errors.select && <p className="input__error">{error}</p>}
           </div>
           <select className="forms__input house" ref={this.inputSelectRef}>
-            <option></option>
+            <option hidden value="">
+              Choose the Type
+            </option>
             <option>Clothing</option>
             <option>Electronics</option>
             <option>Furniture</option>
@@ -213,7 +258,7 @@ class FormData extends Component<FormDataProps> {
               ></input>
               <span>Сhoose File</span>
             </label>
-            {this.state.errors.file && <p className="input__error">{error}</p>}
+            {this.state.errors.file && <p className="input__error">{this.state.errors.file}</p>}
           </div>
         </div>
         <div className="input__wrapper">
