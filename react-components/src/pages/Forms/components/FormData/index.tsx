@@ -1,219 +1,81 @@
-import React, { Component } from 'react';
-import { Card } from '../../../../date/form.card';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { SubmitHandler } from 'react-hook-form/dist/types';
+import { FormCard, CrdForm } from '../../../../date/form.card';
 import './index.scss';
-
-interface FormDataState {
-  errors: {
-    name: string;
-    desc: string;
-    date: string;
-    radio: boolean;
-    cost: string;
-    select: boolean;
-    file: string;
-    checkbox: boolean;
-  };
-}
+import InputText from '../InputText';
+import { resolver } from './resolver';
 
 interface FormDataProps {
-  handleCard: (card: Card) => void;
+  handleCard: (card: CrdForm) => void;
   cards: number;
 }
 
-class FormData extends Component<FormDataProps> {
-  state: FormDataState;
-  formRef: React.RefObject<HTMLFormElement> = React.createRef<HTMLFormElement>();
-  inputNameRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
-  inputDescRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
-  inputDateRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
-  inputRadioRefs = [
-    React.createRef<HTMLInputElement>(),
-    React.createRef<HTMLInputElement>(),
-    React.createRef<HTMLInputElement>(),
-    React.createRef<HTMLInputElement>(),
-  ];
-  inputCostRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
-  inputSelectRef: React.RefObject<HTMLSelectElement> = React.createRef<HTMLSelectElement>();
-  inputFileRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
-  inputCheckboxRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
+const FormData = ({ handleCard, cards }: FormDataProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver, mode: 'onSubmit', reValidateMode: 'onSubmit' });
 
-  constructor(props: FormDataProps) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      errors: {
-        name: '',
-        desc: '',
-        date: '',
-        radio: false,
-        cost: '',
-        select: false,
-        file: '',
-        checkbox: false,
-      },
-    };
-  }
+  const onSubmit: SubmitHandler<FormCard> = (data) => {
+    handleCard({
+      id: cards,
+      ...data,
+      image: URL.createObjectURL(data.image[0]),
+    });
+    reset();
+  };
 
-  handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    const name = this.inputNameRef.current?.value;
-    const desc = this.inputDescRef.current?.value;
-    const date = this.inputDateRef.current?.value;
-    const radio = this.inputRadioRefs.reduce((acc, ref) => {
-      if (ref.current?.checked) acc = ref.current?.value;
-      return acc;
-    }, '');
-    const cost = this.inputCostRef.current?.value;
-    const select = this.inputSelectRef.current?.value;
-    const file = this.inputFileRef.current?.value;
-    const checkbox = this.inputCheckboxRef.current?.checked;
-    const files = this.inputFileRef.current?.files?.[0];
-    const errorArray = { ...this.state.errors };
-    //Name Validation
-    if (!name) {
-      errorArray.name = 'Required field';
-    } else if (name[0] !== name[0].toUpperCase()) {
-      errorArray.name = 'Should starts with uppercased letter';
-    } else {
-      errorArray.name = '';
-    }
-    //Description Validation
-    if (!desc) {
-      errorArray.desc = 'Required field';
-    } else if (desc.split(' ').length < 3) {
-      errorArray.desc = 'Should contains 3 words';
-    } else if (
-      desc
-        .trim()
-        .split(' ')
-        .some((word) => word.length < 5)
-    ) {
-      errorArray.desc = 'Words should be longer then 5 symbols';
-    } else {
-      errorArray.desc = '';
-    }
+  const ingredients = ['1-3', '4-6', '7-9', '10'];
 
-    //Date Validation
-    const curent = new Date().toISOString().slice(0, 10);
-    if (!date) {
-      errorArray.date = 'Required field';
-    } else if (Date.parse(date!) <= Date.parse(curent)) {
-      errorArray.date = 'Date should be later than today';
-    } else {
-      errorArray.date = '';
-    }
-
-    //Radio-btn Validation
-    errorArray.radio = !radio;
-
-    //Cost Validation
-
-    if (!cost) {
-      errorArray.cost = 'Required field';
-    } else if (!/^[0-9]{1,}$/.test(cost)) {
-      errorArray.cost = 'Should be positive';
-    } else if (cost === '0') {
-      errorArray.cost = 'Should be more than 0';
-    } else {
-      errorArray.cost = '';
-    }
-
-    //Select Validation
-    errorArray.select = !select;
-
-    //File Validation
-    if (!file) {
-      errorArray.file = 'Required field';
-    } else if (!files?.type.startsWith('image/')) {
-      errorArray.file = 'Selected file is not an image';
-    } else {
-      errorArray.file = '';
-    }
-
-    //Checkbox Validation
-    errorArray.checkbox = !checkbox;
-    this.setState({ errors: errorArray });
-    if (Object.values(errorArray).every((value) => !value)) {
-      const image = files ? URL.createObjectURL(files) : '';
-      this.props.handleCard({
-        id: this.props.cards,
-        image: image,
-        title: name || '',
-        valid: date || '',
-        description: desc || '',
-        ingredient: radio || '',
-        cost: cost || '',
-        house: select || '',
-      });
-      this.formRef.current?.reset();
-    }
-  }
-
-  render() {
-    const ratings = ['1-3', '4-6', '7-9', '10'];
-    const error = 'Required field';
-    return (
-      <form className="forms" onSubmit={this.handleSubmit} ref={this.formRef}>
-        <div className="input__wrapper">
-          <div className="input__label-wrapper">
-            <label className="forms__label" htmlFor="name">
-              Name
-            </label>
-            {this.state.errors.name && <p className="input__error">{this.state.errors.name}</p>}
-          </div>
-          <input
-            type="text"
-            placeholder="Product Name"
-            className="forms__input name"
-            id="name"
-            ref={this.inputNameRef}
-          ></input>
-        </div>
-        <div className="input__wrapper">
-          <div className="input__label-wrapper">
-            <label className="forms__label" htmlFor="description">
-              Description
-            </label>
-            {this.state.errors.desc && <p className="input__error">{this.state.errors.desc}</p>}
-          </div>
-          <input
-            type="text"
-            placeholder="Product Description"
-            className="forms__input description"
-            id="description"
-            ref={this.inputDescRef}
-          ></input>
-        </div>
+  return (
+    <>
+      <form className="forms" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <InputText
+          register={{
+            ...register('title'),
+          }}
+          name="name"
+          label="Product Title"
+          errors={errors?.title?.message}
+          placeholder="Product Title"
+        />
+        <InputText
+          register={{
+            ...register('description'),
+          }}
+          name="description"
+          label="Description"
+          errors={errors?.description?.message}
+          placeholder="Product Description"
+        />
         <div className="input__wrapper">
           <div className="input__label-wrapper">
             <label className="forms__label" htmlFor="date">
               Valid Until
             </label>
-            {this.state.errors.date && <p className="input__error">{this.state.errors.date}</p>}
+            {errors && <div className="input__error">{errors.valid?.message}</div>}
           </div>
           <input
+            {...register('valid')}
             type="date"
-            className="forms__input date"
+            className={'forms__input date'}
             id="date"
-            ref={this.inputDateRef}
           ></input>
         </div>
         <div className="input__wrapper">
           <div className="input__label-wrapper">
             <label className="forms__label">Rating</label>
-            {this.state.errors.radio && <p className="input__error">{error}</p>}
+            {errors.ingredient && <p className="input__error">{errors.ingredient?.message}</p>}
           </div>
           <div>
-            {ratings.map((rating, index) => {
+            {ingredients.map((ingredient) => {
               return (
-                <label className="radio__label" key={index}>
-                  <input
-                    type="radio"
-                    name="ingridient"
-                    ref={this.inputRadioRefs[index]}
-                    value={rating}
-                  />
-                  {rating}
+                <label className="radio__label" key={ingredient}>
+                  <input {...register('ingredient')} type="radio" value={ingredient} />
+                  {ingredient}
                 </label>
               );
             })}
@@ -222,29 +84,30 @@ class FormData extends Component<FormDataProps> {
         <div className="input__wrapper">
           <div className="input__label-wrapper">
             <label className="forms__label" htmlFor="cost">
-              Product cost
+              Cost
             </label>
-            {this.state.errors.cost && <p className="input__error">{this.state.errors.cost}</p>}
+            {errors && <div className="input__error">{errors.cost?.message}</div>}
           </div>
           <input
+            {...register('cost')}
             type="number"
+            placeholder="1000"
             className="forms__input cost"
             id="cost"
-            ref={this.inputCostRef}
           ></input>
         </div>
         <div className="input__wrapper">
           <div className="input__label-wrapper">
-            <label className="forms__label">Select Product Type</label>
-            {this.state.errors.select && <p className="input__error">{error}</p>}
+            <label className="forms__label">Select native House</label>
+            {errors.type && <p className="input__error">{errors.type?.message}</p>}
           </div>
-          <select className="forms__input house" ref={this.inputSelectRef}>
+          <select {...register('type')} className="forms__input house">
             <option hidden value="">
-              Choose the Type
+              Product Type
             </option>
             <option>Clothing</option>
-            <option>Electronics</option>
             <option>Furniture</option>
+            <option>Electronics</option>
             <option>Other</option>
           </select>
         </div>
@@ -252,30 +115,30 @@ class FormData extends Component<FormDataProps> {
           <div className="input__label-wrapper">
             <label className="input__file">
               <input
+                {...register('image')}
                 type="file"
                 accept="image/jpeg,image/png,image/gif"
-                ref={this.inputFileRef}
               ></input>
-              <span>Сhoose File</span>
+              <span>Choose File</span>
             </label>
-            {this.state.errors.file && <p className="input__error">{this.state.errors.file}</p>}
+            {errors.image && <p className="input__error">{errors.image?.message}</p>}
           </div>
         </div>
         <div className="input__wrapper">
           <div className="input__label-wrapper">
             <label className="forms__label">
-              <input type="checkbox" ref={this.inputCheckboxRef}></input>
-              I&rsquo;m sure i want to create the Product
+              <input {...register('checkbox')} type="checkbox"></input>
+              I&rsquo;m sure i want to create this Product
             </label>
-            {this.state.errors.checkbox && <p className="input__error">{error}</p>}
+            {errors.checkbox && <p className="input__error">{errors.checkbox?.message}</p>}
           </div>
         </div>
         <button className="forms__button" type="submit">
           Submit
         </button>
       </form>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default FormData;

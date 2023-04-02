@@ -3,13 +3,13 @@ import './index.scss';
 import FormData from './components/FormData/index';
 import CardForm from './components/CardForm';
 import Popup from './../../components/Popup/index';
-import { Card } from 'date/form.card';
+import { CrdForm } from 'date/form.card';
 
 export const Forms = () => {
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useState<CrdForm[]>([]);
   const [popup, setPopup] = useState(false);
 
-  const handleCard = (card: Card) => {
+  const handleCard = (card: CrdForm) => {
     setCards([...cards, card]);
     setPopup(true);
   };

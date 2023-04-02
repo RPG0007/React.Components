@@ -1,10 +1,12 @@
-export type Card = {
-  id: number;
-  image: string;
+export type FormCard = {
+  image: FileList;
   title: string;
   valid: string;
   description: string;
   ingredient: string;
   cost: string;
-  house: string;
+  type: string;
+  checkbox: boolean;
 };
+
+export type CrdForm = Omit<FormCard, 'image' | 'checkbox'> & { image: string; id: number };
