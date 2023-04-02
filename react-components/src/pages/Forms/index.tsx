@@ -22,7 +22,7 @@ export const Forms = () => {
   }, [popup]);
 
   return (
-    <div className="main">
+    <div className="main__container">
       <FormData handleCard={handleCard} cards={cards.length} />
       <div className="forms__cards">
         <CardForm cards={cards} />
