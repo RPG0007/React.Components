@@ -5,17 +5,17 @@ export const ImageLike = (id: { id: number }) => {
   const [like, setLike] = useState({ isLike: searchIdLocalStorage(id.id) });
 
   const handleClick = () => {
-    setLike({ isLike: !like.isLike });
     const likes: Array<{ id: number; isLike: boolean }> = JSON.parse(
       localStorage.getItem('likes') || '[]'
     );
     const index = likes.findIndex((elem) => elem.id === id.id);
     if (index !== -1) {
-      likes[index].isLike = like.isLike;
+      likes[index].isLike = !like.isLike;
     } else {
       likes.push({ id: id.id, isLike: !like.isLike });
     }
     localStorage.setItem('likes', JSON.stringify(likes));
+    setLike({ isLike: !like.isLike });
   };
 
   const toggleClass = like.isLike ? ' active' : '';

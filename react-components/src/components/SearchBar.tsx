@@ -2,7 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import glass from '../assets/search_glass.png';
 
 export const SearchBar = () => {
-  const [search, setSearch] = useState(JSON.parse(localStorage.getItem('searchInput') || ''));
+  const savedvalue: string | null = localStorage.getItem('searchInput');
+  const [search, setSearch] = useState(savedvalue ? JSON.parse(savedvalue) : '');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -12,6 +13,7 @@ export const SearchBar = () => {
 
   const handleBlur = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
+    setSearch(inputValue);
     localStorage.setItem('searchInput', JSON.stringify(inputValue));
   };
 

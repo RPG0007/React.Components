@@ -37,7 +37,7 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByText('Name')).toBeInTheDocument();
+    expect(screen.getByText('Product Title')).toBeInTheDocument();
   });
   test('renders forms page2', () => {
     render(
