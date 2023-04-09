@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { Header } from './components/Header';
@@ -10,6 +9,7 @@ import { Forms } from './pages/Forms/index';
 import './App.css';
 import '../src/css-componenets/header-footer.css';
 import '../src/css-componenets/homepage.css';
+import HomePage from 'pages/HomePage';
 
 const App = () => {
   return (

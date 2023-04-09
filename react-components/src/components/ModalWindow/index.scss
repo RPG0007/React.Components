@@ -23,8 +23,9 @@
       position: absolute;
       top: 5px;
       right: 10px;
-      opacity: 0.7;
+      opacity: 1;
       cursor: pointer;
+      z-index: 1;
     }
   
     &__close:hover {
@@ -35,8 +36,8 @@
   .card {
     max-width: 500px;
     min-height: 348px;
-    background-color: rgba(23, 31, 39, 0.9);
-    color: bisque;
+    background-color: #598fbc;
+    color: rgb(32, 30, 26);
     padding: 20px;
     border: thick double rgba(124, 189, 255, 0.641);
     border-radius: 10px;
@@ -52,17 +53,13 @@
       margin-bottom: 10px;
       font-family: 'GlamySunriseRegular';
       letter-spacing: 2px;
-      color: rgb(124, 189, 255);
-    }
-  
-    &__img {
-      object-fit: cover;
+      color: rgb(245, 191, 92);
     }
   
     &__span {
       font-family: 'GlamySunriseRegular';
       letter-spacing: 2px;
-      color: rgba(91, 135, 178, 0.8);
+      color: rgba(255, 179, 14, 0.8);
       font-size: 18px;
     }
   

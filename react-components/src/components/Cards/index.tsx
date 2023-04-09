@@ -10,7 +10,7 @@ const Cards = ({ data }: CardProps) => {
   if (!data.length)
     return (
       <div className="cards__error">
-        <p className="error__text">No such cards</p>
+        <p className="error__text">Thats all of them.Go to previous page.</p>
       </div>
     );
   return (

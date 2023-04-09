@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/jest-dom';
 import 'jest';
-import { HomePage } from '../../pages/HomePage';
+import HomePage from 'pages/HomePage';
 
 let container: HTMLDivElement | null = null;
 beforeEach(() => {

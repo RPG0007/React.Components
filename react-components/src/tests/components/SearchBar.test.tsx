@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/jest-dom';
 import 'jest';
-import { SearchBar } from '../../components/SearchBar';
+import SearchBar from '../../components/SearchBar';
 
 let container: HTMLDivElement | null = null;
 beforeEach(() => {

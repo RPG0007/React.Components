@@ -42,14 +42,14 @@ const ModalWindow = ({ data, loading }: ModalWindowProps) => {
                     </div>
                   </div>
                 </div>
-                <div className="card__ingredient">
-                  <span className="card__span">Ingredient:</span> {data?.category}
+                <div className="card__category">
+                  <span className="card__span">Category:</span> {data?.category}
                 </div>
                 <div className="card__cost">
-                  <span className="card__span">Ingredient cost:</span> {data?.price} galleons
+                  <span className="card__span">Cost:</span> {data?.price} $
                 </div>
-                <div className="card__prerequisite">
-                  <span className="card__span">Prerequisite:</span> {data?.rating}
+                <div className="card__rating">
+                  <span className="card__span">Rating:</span> {data?.rating}
                 </div>
               </div>
             </>

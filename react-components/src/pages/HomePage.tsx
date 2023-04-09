@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { SearchBar } from '../components/SearchBar';
+import SearchBar from '../components/SearchBar';
 import { useSearchParams } from 'react-router-dom';
 import { Card as ICard } from 'date/card';
 import Pagination from 'components/Pagination';
@@ -7,7 +7,7 @@ import Cards from 'components/Cards';
 import Loader from 'components/Loader';
 import ModalWindow from 'components/ModalWindow/ModalWindow';
 
-export const HomePage = () => {
+const HomePage = () => {
   const [cards, setCards] = useState<ICard[]>([]);
   const [card, setCard] = useState<ICard | null>(null);
   const [totalPages, setTotalPages] = useState(1);
@@ -24,9 +24,10 @@ export const HomePage = () => {
     (data: ICard[]) => {
       const filteredCards = data.filter((card) => {
         let render = false;
-        if (card.title.toLowerCase().includes(local.toLowerCase())) render = true;
+        if (card.title.toLowerCase().includes(local.toLocaleLowerCase())) render = true;
         return render;
       });
+      setCards(filteredCards);
       return filteredCards;
     },
     [local]
@@ -34,9 +35,17 @@ export const HomePage = () => {
 
   useEffect(() => {
     setLoad(true);
-    fetch(`https://dummyjson.com/products/?limit=4&skip=${pageParams * 4}`)
+    fetch(
+      nameParams.length > 0
+        ? `https://dummyjson.com/products/search?q=${nameParams}&limit=${limit.current}&skip=${
+            (pageParams - 1) * limit.current
+          }`
+        : `https://dummyjson.com/products/?limit=${limit.current}&skip=${
+            (pageParams - 1) * limit.current
+          }`
+    )
       .then((res) => {
-        const totalApiPages = Number(20 || 1);
+        const totalApiPages = Number(30 || 1);
         setTotalPages(Math.ceil(totalApiPages / limit.current));
         return res.json();
       })
@@ -55,7 +64,7 @@ export const HomePage = () => {
         return res.json();
       })
       .then((data) => {
-        setCard(data[0]);
+        setCard(data);
       })
       .finally(() => {
         setLoadCard(false);
@@ -78,3 +87,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage;
