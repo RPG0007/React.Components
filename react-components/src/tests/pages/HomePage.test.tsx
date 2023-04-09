@@ -1,35 +1,22 @@
 import React from 'react';
-import { unmountComponentAtNode } from 'react-dom';
-import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/jest-dom';
 import 'jest';
-import HomePage from 'pages/HomePage';
+import { HomePage } from '../../pages/HomePage';
 
-let container: HTMLDivElement | null = null;
-beforeEach(() => {
-  container = document.createElement('div') as HTMLDivElement;
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container as Element);
-  if (container) {
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-  }
-});
-
-describe('About Page', () => {
-  it('renders about page', () => {
+describe('Main', () => {
+  it('main is render', async () => {
     render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+        </Routes>
+      </MemoryRouter>
     );
-    const homeTitle = screen.getByTestId('homepage-h1');
-    expect(homeTitle).toBeInTheDocument();
+
+    const name = await screen.findByText('Store');
+    expect(name).toBeInTheDocument();
   });
 });

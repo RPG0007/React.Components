@@ -1,4 +1,4 @@
-import Loader from 'components/Loader';
+import Loader from '../Loader';
 import { Card as ICard } from 'date/card';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';

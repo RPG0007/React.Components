@@ -2,8 +2,10 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import glass from '../assets/search_glass.png';
 import { useSearchParams } from 'react-router-dom';
 
-const SearchBar = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+export const SearchBar = () => {
+  const [searchParams, setSearchParams] = useSearchParams(
+    localStorage.getItem('searchInput') || ''
+  );
   const nameParams = searchParams.get('name') || '';
   const nameLocal = localStorage.getItem('searchInput');
   const [value, setValue] = useState(nameParams);
@@ -38,6 +40,8 @@ const SearchBar = () => {
       <input
         data-testid="searchbar"
         type="text"
+        role="textbox"
+        className="search__input"
         placeholder="Search..."
         onChange={(event) => {
           setValue(event.currentTarget.value);
@@ -49,5 +53,3 @@ const SearchBar = () => {
     </form>
   );
 };
-
-export default SearchBar;

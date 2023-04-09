@@ -9,7 +9,7 @@ import { Forms } from './pages/Forms/index';
 import './App.css';
 import '../src/css-componenets/header-footer.css';
 import '../src/css-componenets/homepage.css';
-import HomePage from 'pages/HomePage';
+import { HomePage } from './pages/HomePage';
 
 const App = () => {
   return (

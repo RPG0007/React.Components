@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import SearchBar from '../components/SearchBar';
+import { SearchBar } from '../components/SearchBar';
 import { useSearchParams } from 'react-router-dom';
-import { Card as ICard } from 'date/card';
-import Pagination from 'components/Pagination';
-import Cards from 'components/Cards';
-import Loader from 'components/Loader';
-import ModalWindow from 'components/ModalWindow/ModalWindow';
+import { Card as ICard } from '../date/card';
+import Pagination from '../components/Pagination';
+import Cards from '../components/Cards';
+import Loader from '../components/Loader';
+import ModalWindow from '../components/ModalWindow/ModalWindow';
+import fetch from 'node-fetch';
 
-const HomePage = () => {
+export const HomePage = () => {
   const [cards, setCards] = useState<ICard[]>([]);
   const [card, setCard] = useState<ICard | null>(null);
   const [totalPages, setTotalPages] = useState(1);
@@ -87,5 +88,3 @@ const HomePage = () => {
     </div>
   );
 };
-
-export default HomePage;
