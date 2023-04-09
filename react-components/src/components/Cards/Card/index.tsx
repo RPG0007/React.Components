@@ -25,7 +25,7 @@ const Card = ({ data }: CardProps) => {
         }}
       >
         <img
-          src={data.image}
+          src={data.thumbnail}
           alt={data.title}
           className="preview__img"
           width={'250px'}

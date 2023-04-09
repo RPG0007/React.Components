@@ -34,14 +34,14 @@ export const HomePage = () => {
 
   useEffect(() => {
     setLoad(true);
-    fetch(`https://fakestoreapi.com/products?limit=${limit.current}`)
+    fetch(`https://dummyjson.com/products/?limit=4&skip=${pageParams * 4}`)
       .then((res) => {
         const totalApiPages = Number(20 || 1);
         setTotalPages(Math.ceil(totalApiPages / limit.current));
         return res.json();
       })
       .then((data) => {
-        setCards(nameParams ? filterCards(data) : data);
+        setCards(nameParams ? filterCards(data.products) : data.products);
       })
       .finally(() => {
         setLoad(false);
@@ -50,7 +50,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     setLoadCard(true);
-    fetch(`https://fakestoreapi.com/products/${id}`)
+    fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => {
         return res.json();
       })

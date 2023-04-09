@@ -29,7 +29,7 @@ const ModalWindow = ({ data, loading }: ModalWindowProps) => {
               <div className="modal__card card">
                 <div className="card__header">
                   <img
-                    src={data?.image}
+                    src={data?.thumbnail}
                     alt={data?.title}
                     className="card__img"
                     width={'180px'}
@@ -49,7 +49,7 @@ const ModalWindow = ({ data, loading }: ModalWindowProps) => {
                   <span className="card__span">Ingredient cost:</span> {data?.price} galleons
                 </div>
                 <div className="card__prerequisite">
-                  <span className="card__span">Prerequisite:</span> {data?.rating.rate}
+                  <span className="card__span">Prerequisite:</span> {data?.rating}
                 </div>
               </div>
             </>
