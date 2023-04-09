@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/jest-dom';
 import 'jest';
-import { Card } from '../../components/Card';
+import Card from 'components/Cards/Card';
 
 let container: HTMLDivElement | null = null;
 beforeEach(() => {
@@ -38,7 +38,7 @@ const mockProduct = {
 
 describe('test Card', () => {
   it('renders card', () => {
-    render(<Card product={mockProduct} key={mockProduct.id} />);
+    render(<Card data={mockProduct} key={mockProduct.id} />);
     const card = screen.getByTestId('card');
     const showDetails = screen.getByTestId('show-details');
     const ratingProduct = screen.getByTestId('rating-product');
