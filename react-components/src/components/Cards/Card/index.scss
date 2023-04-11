@@ -1,0 +1,23 @@
+.preview {
+  background-color: rgba(23, 31, 39, 0.9);
+  color: bisque;
+  padding: 20px;
+  border: thick double rgba(124, 189, 255, 0.641);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  &__title {
+    font-size: 25px;
+    margin: 10px 0;
+    font-family: 'GlamySunriseRegular';
+    letter-spacing: 2px;
+    color: rgb(124, 189, 255);
+  }
+
+  &__img {
+    object-fit: cover;
+  }
+}
