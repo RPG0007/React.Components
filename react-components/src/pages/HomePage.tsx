@@ -1,15 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { SearchBar } from '../components/SearchBar';
 import { useSearchParams } from 'react-router-dom';
-import { Card as ICard } from '../date/card';
-import Pagination from '../components/Pagination';
+//import { Card as ICard } from '../date/card';
+//import Pagination from '../components/Pagination';
 import Cards from '../components/Cards';
 import Loader from '../components/Loader';
 import ModalWindow from '../components/ModalWindow/ModalWindow';
-import fetch from 'node-fetch';
+//import fetch from 'node-fetch';
+import { useGetCardQuery, useGetCardsQuery } from 'store/api/cards.api';
+import { useSearch } from 'hooks/useSearch';
 
 export const HomePage = () => {
-  const [cards, setCards] = useState<ICard[]>([]);
+  /*const [cards, setCards] = useState<ICard[]>([]);
   const [card, setCard] = useState<ICard | null>(null);
   const [totalPages, setTotalPages] = useState(1);
   const [load, setLoad] = useState(false);
@@ -77,14 +79,19 @@ export const HomePage = () => {
     if (page != 1) searchParams.set('page', page.toString());
     else searchParams.delete('page');
     setSearchParams(searchParams);
-  };
+  };*/
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParams = Number(searchParams.get('page') || 4);
+  const id = searchParams.get('id') || '';
+  const search = useSearch();
+  const { isLoading, data: cards } = useGetCardsQuery({ pageParams, search });
+  const { data: card } = useGetCardQuery(id);
   return (
     <div className="container_home">
       <h2 data-testid="homepage-h1">Store</h2>
       <SearchBar />
-      <Pagination pageCount={totalPages} initialPage={pageParams - 1} onChange={handlePageChange} />
-      {load ? <Loader /> : <Cards data={cards} />}
-      {id && <ModalWindow data={card} loading={loadCard} />}
+      {isLoading ? <Loader /> : <Cards data={cards.products} />}
+      {id && <ModalWindow data={card[0]} loading={isLoading} />}
     </div>
   );
 };

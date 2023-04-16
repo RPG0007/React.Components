@@ -16,7 +16,7 @@ export const Header = () => {
             <li>
               <NavLink
                 className="navigation_link"
-                to="/React.Components/"
+                to="/"
                 style={({ isActive }) =>
                   isActive
                     ? {
@@ -32,7 +32,7 @@ export const Header = () => {
             <li>
               <NavLink
                 className="navigation_link"
-                to="/React.Components/about"
+                to="/about"
                 style={({ isActive }) =>
                   isActive
                     ? {
@@ -48,7 +48,7 @@ export const Header = () => {
             <li>
               <NavLink
                 className="navigation_link"
-                to="/React.Components/forms"
+                to="/forms"
                 style={({ isActive }) =>
                   isActive
                     ? {

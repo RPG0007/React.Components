@@ -10,7 +10,7 @@ interface CardProps {
 
 const Card = ({ data }: CardProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  console.log(data);
   const showModalWindow = (id: string) => {
     searchParams.set('id', id);
     setSearchParams(searchParams);

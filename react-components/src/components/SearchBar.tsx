@@ -1,23 +1,14 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import glass from '../assets/search_glass.png';
 import { useSearchParams } from 'react-router-dom';
+import { useSearch } from 'hooks/useSearch';
+import { useActions } from 'hooks/useAction';
 
 export const SearchBar = () => {
-  const [searchParams, setSearchParams] = useSearchParams(
-    localStorage.getItem('searchInput') || ''
-  );
-  const nameParams = searchParams.get('name') || '';
-  const nameLocal = localStorage.getItem('searchInput');
-  const [value, setValue] = useState(nameParams);
-
-  useEffect(() => {
-    if (!nameParams && nameLocal) {
-      searchParams.set('name', nameLocal);
-      setSearchParams(searchParams);
-      setValue(nameLocal);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { changeSearch } = useActions();
+  const search = useSearch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [value, setValue] = useState(search);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,13 +17,12 @@ export const SearchBar = () => {
   const applySearch = (name: string) => {
     if (name) {
       searchParams.set('name', name);
-      localStorage.setItem('searchInput', name);
     } else {
       searchParams.delete('name');
-      localStorage.removeItem('searchInput');
     }
-    searchParams.delete('page');
+
     setSearchParams(searchParams);
+    changeSearch(name);
   };
 
   return (
