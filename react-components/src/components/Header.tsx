@@ -6,7 +6,7 @@ export const Header = () => {
   return (
     <header data-testid="header" className="header">
       <div>
-        <NavLink to="/React.Components/" className="logo">
+        <NavLink to="/" className="logo">
           <img className="logo" src={logo} alt="" />
         </NavLink>
       </div>

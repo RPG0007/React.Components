@@ -12,12 +12,12 @@ export const CardsApi = api.injectEndpoints({
           params.q = getParams.search;
 
           return {
-            url: `/search?limit=4`,
+            url: `/search?limit=8`,
             params,
           };
         }
         return {
-          url: `/?limit=4&`,
+          url: `/?limit=8&`,
           params,
         };
       },

@@ -1,6 +1,5 @@
 import React, { FormEvent, useState } from 'react';
 import glass from '../assets/search_glass.png';
-import { useSearchParams } from 'react-router-dom';
 import { useSearch } from 'hooks/useSearch';
 import { useActions } from 'hooks/useAction';
 

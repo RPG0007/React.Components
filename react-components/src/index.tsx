@@ -1,5 +1,3 @@
-import { Footer } from 'components/Footer';
-import { Header } from 'components/Header';
 import ROUTES from 'date/routes';
 import { AboutPage } from 'pages/AboutPage';
 import { Forms } from 'pages/Forms';
@@ -12,8 +10,6 @@ import './App.css';
 import '../src/css-componenets/header-footer.css';
 import '../src/css-componenets/homepage.css';
 import {
-  BrowserRouter,
-  Outlet,
   Route,
   RouterProvider,
   createHashRouter,
