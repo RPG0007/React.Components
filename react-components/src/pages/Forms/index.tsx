@@ -3,9 +3,9 @@ import './index.scss';
 import FormData from './components/FormData/index';
 import CardForm from './components/CardForm';
 import Popup from './../../components/Popup/index';
-import { CrdForm } from 'date/form.card';
-import { useFormCards } from 'hooks/useFormCards';
-import { useActions } from 'hooks/useAction';
+import { CrdForm } from '../../date/form.card';
+import { useFormCards } from '../../hooks/useFormCards';
+import { useActions } from '../../hooks/useAction';
 
 export const Forms = () => {
   const [popup, setPopup] = useState(false);

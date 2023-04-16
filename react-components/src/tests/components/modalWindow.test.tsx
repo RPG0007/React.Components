@@ -1,7 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import ModalWindow from '../../components/ModalWindow/ModalWindow';
+import { ModalWindow } from '../../components/ModalWindow/ModalWindow';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 describe('Card', () => {
   it('render Card component', () => {
@@ -20,11 +22,13 @@ describe('Card', () => {
     };
 
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<ModalWindow modalData={card} loading={false} />}></Route>
-        </Routes>
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <Routes>
+            <Route path="/" element={<ModalWindow modalData={card} loading={false} />}></Route>
+          </Routes>
+        </MemoryRouter>
+      </Provider>
     );
     expect(screen.getByText(card.title)).toBeInTheDocument();
   });

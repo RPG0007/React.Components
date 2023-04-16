@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
-import { CardPreview } from 'date/card';
-import { useActions } from 'hooks/useAction';
+import { CardPreview } from '../../../date/card';
+import { useActions } from '../../../hooks/useAction';
 
 interface CardProps {
   data: CardPreview;

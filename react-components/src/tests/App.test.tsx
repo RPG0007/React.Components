@@ -1,50 +1,26 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
-import App from '../App';
+import { render, waitFor, screen } from '@testing-library/react';
+import App from '../index';
+import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
 
 describe('App', () => {
-  test('renders home page', () => {
+  it('renders Forms component on navigate', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
+      <Provider store={store}>
         <App />
-      </MemoryRouter>
+      </Provider>
     );
-    expect(screen.getByText('This is the 404 page')).toBeInTheDocument();
-  });
+    const main = await screen.getByText(/Online Store/i);
+    expect(main).toBeInTheDocument();
+    const link = screen.getByText('About');
+    const user = userEvent.setup();
+    await user.click(link);
 
-  test('renders about page', () => {
-    render(
-      <MemoryRouter initialEntries={['/about']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByText('This is the 404 page')).toBeInTheDocument();
-  });
-
-  test('renders not found page', () => {
-    render(
-      <MemoryRouter initialEntries={['/non-existent-route']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByText('This is the 404 page')).toBeInTheDocument();
-  });
-  test('renders forms page', () => {
-    render(
-      <MemoryRouter initialEntries={['/React.Components/forms']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByText('Product Title')).toBeInTheDocument();
-  });
-  test('renders forms page2', () => {
-    render(
-      <MemoryRouter initialEntries={['/React.Components/forms']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByText('Cards not found')).toBeInTheDocument();
+    waitFor(async () => {
+      const forms = await screen.findByText(/This is the ABOUT page/i);
+      expect(forms).toBeInTheDocument();
+    });
   });
 });

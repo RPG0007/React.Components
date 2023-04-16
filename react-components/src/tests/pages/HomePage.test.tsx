@@ -1,22 +1,24 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen, render, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import '@testing-library/jest-dom/extend-expect';
-import '@testing-library/jest-dom';
-import 'jest';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 import { HomePage } from '../../pages/HomePage';
 
 describe('Main', () => {
   it('main is render', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-        </Routes>
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <Routes>
+            <Route path="/" element={<HomePage />}></Route>
+          </Routes>
+        </MemoryRouter>
+      </Provider>
     );
-
-    const name = await screen.findByText('Store');
-    expect(name).toBeInTheDocument();
+    await waitFor(async () => {
+      const name = await screen.findByText('Store');
+      expect(name).toBeInTheDocument();
+    });
   });
 });

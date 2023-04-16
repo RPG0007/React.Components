@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import glass from '../assets/search_glass.png';
-import { useSearch } from 'hooks/useSearch';
-import { useActions } from 'hooks/useAction';
+import { useSearch } from '../hooks/useSearch';
+import { useActions } from '../hooks/useAction';
 
 export const SearchBar = () => {
   const { changeSearch } = useActions();
@@ -23,7 +23,7 @@ export const SearchBar = () => {
         type="text"
         role="textbox"
         className="search__input"
-        placeholder="Search..."
+        placeholder="Search...Example: shirt"
         onChange={(event) => {
           setValue(event.currentTarget.value);
         }}

@@ -1,8 +1,8 @@
-import ROUTES from 'date/routes';
-import { AboutPage } from 'pages/AboutPage';
-import { Forms } from 'pages/Forms';
-import { HomePage } from 'pages/HomePage';
-import { NotFoundPage } from 'pages/NotFoundPage';
+import ROUTES from './date/routes';
+import { AboutPage } from './pages/AboutPage';
+import { Forms } from './pages/Forms';
+import { HomePage } from './pages/HomePage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -15,8 +15,8 @@ import {
   createHashRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import { store } from 'store/store';
-import Root from 'App';
+import { store } from './store/store';
+import Root from './App';
 
 const router = createHashRouter(
   createRoutesFromElements(

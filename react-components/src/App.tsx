@@ -3,8 +3,8 @@ import { Outlet } from 'react-router-dom';
 import './App.css';
 import '../src/css-componenets/header-footer.css';
 import '../src/css-componenets/homepage.css';
-import { Footer } from 'components/Footer';
-import { Header } from 'components/Header';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
 
 const Root = () => {
   return (
