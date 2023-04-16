@@ -57,11 +57,14 @@ describe('FormData', () => {
     expect(name.className).toBe('forms__input name');
   });
 
-  it('renders FormData component with expected value', () => {
+  it('renders FormData component with expected value', async () => {
     const expectedValue = 'Crimson';
     render(<FormData handleCard={() => {}} cards={0} />);
     const name = screen.getByPlaceholderText('Product Title');
     fireEvent.change(name, { target: { value: expectedValue } });
     expect(screen.getByDisplayValue(expectedValue)).toBeInTheDocument();
+    const submit = await screen.getByRole('submitbtn');
+    fireEvent.click(submit);
+    expect(screen.getByText('Rating')).toBeInTheDocument();
   });
 });

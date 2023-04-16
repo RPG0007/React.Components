@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 import App from '../index';
@@ -15,8 +14,7 @@ describe('App', () => {
     const main = screen.getByText(/Online Store/i);
     expect(main).toBeInTheDocument();
     const link = screen.getByText('Forms');
-    const user = userEvent.setup();
-    await user.click(link);
+    await fireEvent(link, new Event('click'));
 
     waitFor(async () => {
       const forms = await screen.findByText(/Product Title/i);

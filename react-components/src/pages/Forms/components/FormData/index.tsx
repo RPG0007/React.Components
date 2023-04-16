@@ -98,7 +98,7 @@ const FormData = ({ handleCard, cards }: FormDataProps) => {
         </div>
         <div className="input__wrapper">
           <div className="input__label-wrapper">
-            <label className="forms__label">Select native House</label>
+            <label className="forms__label">Select Proudct Type</label>
             {errors.type && <p className="input__error">{errors.type?.message}</p>}
           </div>
           <select {...register('type')} className="forms__input house">
@@ -133,7 +133,7 @@ const FormData = ({ handleCard, cards }: FormDataProps) => {
             {errors.checkbox && <p className="input__error">{errors.checkbox?.message}</p>}
           </div>
         </div>
-        <button className="forms__button" type="submit">
+        <button className="forms__button" type="submit" role="submitbtn">
           Submit
         </button>
       </form>
