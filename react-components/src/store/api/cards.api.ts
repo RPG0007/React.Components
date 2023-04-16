@@ -1,7 +1,6 @@
 import { api } from './api';
 interface SerchParams {
-  limit: string;
-  name_like: string;
+  q: string;
 }
 
 export const CardsApi = api.injectEndpoints({
@@ -9,20 +8,23 @@ export const CardsApi = api.injectEndpoints({
     getCards: builder.query({
       query: (getParams) => {
         const params = {} as SerchParams;
+        if (getParams.search) {
+          params.q = getParams.search;
 
-        if (getParams.pageParams) params.limit = getParams.pageParams;
-        if (getParams.search) params.name_like = getParams.search;
-
+          return {
+            url: `/search?limit=4`,
+            params,
+          };
+        }
         return {
-          url: `/products/`,
+          url: `/?limit=4&`,
           params,
         };
       },
     }),
 
     getCard: builder.query({
-      query: (id) => `/products/${id}`,
-      providesTags: (id) => [{ type: 'products', id }],
+      query: (id) => `/${id}`,
     }),
     // getTotalPages: builder.query({
     //   query: (totalCards) => `/info/?name_like=${totalCards}`,

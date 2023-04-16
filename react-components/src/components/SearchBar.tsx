@@ -7,22 +7,14 @@ import { useActions } from 'hooks/useAction';
 export const SearchBar = () => {
   const { changeSearch } = useActions();
   const search = useSearch();
-  const [searchParams, setSearchParams] = useSearchParams();
+
   const [value, setValue] = useState(search);
+  const applySearch = (name: string) => {
+    changeSearch(name);
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  };
-
-  const applySearch = (name: string) => {
-    if (name) {
-      searchParams.set('name', name);
-    } else {
-      searchParams.delete('name');
-    }
-
-    setSearchParams(searchParams);
-    changeSearch(name);
   };
 
   return (

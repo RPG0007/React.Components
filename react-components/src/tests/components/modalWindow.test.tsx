@@ -18,10 +18,11 @@ describe('Card', () => {
       thumbnail: '...',
       images: ['...', '...', '...'],
     };
+
     render(
       <MemoryRouter initialEntries={['/']}>
         <Routes>
-          <Route path="/" element={<ModalWindow data={card} loading={false} />}></Route>
+          <Route path="/" element={<ModalWindow modalData={card} loading={false} />}></Route>
         </Routes>
       </MemoryRouter>
     );

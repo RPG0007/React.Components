@@ -3,17 +3,24 @@ import './index.scss';
 
 import { useSearchParams } from 'react-router-dom';
 import { CardPreview } from 'date/card';
+import { useActions } from 'hooks/useAction';
 
 interface CardProps {
   data: CardPreview;
 }
 
 const Card = ({ data }: CardProps) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  console.log(data);
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  const { changeCardId } = useActions();
+  // const cardId = useCardId();
+
   const showModalWindow = (id: string) => {
-    searchParams.set('id', id);
-    setSearchParams(searchParams);
+    changeCardId(id);
+    // console.log(id);
+
+    // searchParams.set('id', id);
+    // setSearchParams(searchParams);
   };
 
   return (

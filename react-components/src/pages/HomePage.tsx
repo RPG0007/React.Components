@@ -7,8 +7,10 @@ import Cards from '../components/Cards';
 import Loader from '../components/Loader';
 import ModalWindow from '../components/ModalWindow/ModalWindow';
 //import fetch from 'node-fetch';
-import { useGetCardQuery, useGetCardsQuery } from 'store/api/cards.api';
 import { useSearch } from 'hooks/useSearch';
+import { useCardId } from 'hooks/useCardId';
+import Modal from 'components/ModalPopup';
+import { useGetCardsQuery } from 'store/api/cards.api';
 
 export const HomePage = () => {
   /*const [cards, setCards] = useState<ICard[]>([]);
@@ -80,18 +82,15 @@ export const HomePage = () => {
     else searchParams.delete('page');
     setSearchParams(searchParams);
   };*/
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageParams = Number(searchParams.get('page') || 4);
-  const id = searchParams.get('id') || '';
   const search = useSearch();
-  const { isLoading, data: cards } = useGetCardsQuery({ pageParams, search });
-  const { data: card } = useGetCardQuery(id);
+  const { isLoading, data: cards } = useGetCardsQuery({ search });
+  const cardId = useCardId();
   return (
     <div className="container_home">
       <h2 data-testid="homepage-h1">Store</h2>
       <SearchBar />
       {isLoading ? <Loader /> : <Cards data={cards.products} />}
-      {id && <ModalWindow data={card[0]} loading={isLoading} />}
+      {cardId && <Modal />}
     </div>
   );
 };
