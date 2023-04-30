@@ -9,7 +9,7 @@ describe('Card', () => {
         const card = {
             id: 1,
             name: 'Puffskein',
-            image: 'https://github.com/Karinaguseva/api-for-react2023Q1/blob/main/images/Puffskein.jpg?raw=true',
+            image: 'https://github.com/RPG0007/api-for-react2023Q1/blob/main/images/Puffskein.jpg?raw=true',
         };
         render(React.createElement(Provider, { store: store },
             React.createElement(MemoryRouter, { initialEntries: ['/'] },

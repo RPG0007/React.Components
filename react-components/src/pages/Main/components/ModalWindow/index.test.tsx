@@ -16,7 +16,7 @@ describe('ModalWindow', () => {
       prerequisite: 'Must complete main story quest "The Elf, the Nab-sack, and the Loom"',
       cost: 150,
       image:
-        'https://github.com/Karinaguseva/api-for-react2023Q1/blob/main/images/Puffskein.jpg?raw=true',
+        'https://github.com/RPG0007/api-for-react2023Q1/blob/main/images/Puffskein.jpg?raw=true',
     };
     render(
       <Provider store={store}>

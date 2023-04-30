@@ -11,7 +11,7 @@ describe('Card', () => {
       id: 1,
       name: 'Puffskein',
       image:
-        'https://github.com/Karinaguseva/api-for-react2023Q1/blob/main/images/Puffskein.jpg?raw=true',
+        'https://github.com/RPG0007/api-for-react2023Q1/blob/main/images/Puffskein.jpg?raw=true',
     };
     render(
       <Provider store={store}>
